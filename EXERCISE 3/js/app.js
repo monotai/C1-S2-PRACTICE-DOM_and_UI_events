@@ -20,6 +20,9 @@ function createCard() {
   cartFooter.className = "card-footer";
   para.textContent = "Description";
   buttons.textContent = "Remove Card";
+  buttons.addEventListener('click', function () {
+    card.remove();
+  })
   cartFooter.appendChild(buttons);
   // 1 - Random color for card
   card.style.background = randomColor();
