@@ -5,11 +5,11 @@
 function addItem() {
   // 1- Create a new task
   // TODO
-  let task = {discription: "task", priority: 0};
+  let task = {description: "task", priority: 0};
   //  2- Set the description from the text field
   // TODO
   const description = document.getElementById("description");
-  task.discription = description.value;
+  task.description = description.value;
   // 3- Set the priority from select field
   // TODO
   const priority = document.getElementById("priority");
@@ -33,24 +33,59 @@ let addButton = document.getElementById("addButton");
 addButton.addEventListener("click", addItem);
 
 // diplayTasks(tasks)
-const showAllButton = document.createElement("button");
-showAllButton.textContent = "Show all the tasks";
-showAllButton.addEventListener('click', displayTasks(tasks));
-const form = document.querySelector("form");
-var newLine = document.createElement("br");
-form.appendChild(newLine);
-form.appendChild(newLine);
-form.appendChild(newLine);
-form.appendChild(showAllButton);
+
+// my function
+function newLine(container) {
+  let newLine = document.createElement("br");
+  container.appendChild(newLine);
+}
+
+const container = document.getElementsByClassName("container")[0];
+const showConstainer = document.createElement("div");
+container.style.display = "grid";
+container.style.gridTemplateColumns = "1fr 1fr";
+container.style.gap = "30px";
+container.appendChild(showConstainer);
+
 function displayTasks(tasks) {
-  let task = document.createElement("div");
-  tasks.forEach( (discription, priority) => {
-    task.textContent = discription;
-    if (priority == 1) {
-      task.style.backgroundColor = "red";
+  showConstainer.innerHTML = ''; // clear
+  tasks.forEach(task => {
+    let taskElement = document.createElement("div");
+    taskElement.style.textAlign = "center";
+    taskElement.style.padding = "20px";
+    taskElement.style.width = "100%";
+    taskElement.style.color = "white";
+    taskElement.textContent = task.description;
+    if (task.priority === 1) {
+      taskElement.style.backgroundColor = "red";
     }
     else {
-      task.style.backgroundColor = "gray";
+      taskElement.style.backgroundColor = "gray";
     }
+    newLine(showConstainer);
+    showConstainer.appendChild(taskElement);
   });
 }
+
+const form = document.querySelector("form");
+
+const showHighButton = document.createElement("button");
+showHighButton.textContent = "Show only the important task";
+showHighButton.addEventListener('click', () => displayTasks(tasks.filter(task => task.priority === 1)));
+newLine(form);
+newLine(form);
+form.appendChild(showHighButton);
+
+const showLowButton = document.createElement("button");
+showLowButton.textContent = "Show the task that not important";
+showLowButton.addEventListener('click', () => displayTasks(tasks.filter(task => task.priority === 0)));
+newLine(form);
+newLine(form);
+form.appendChild(showLowButton);
+
+const showAllButton = document.createElement("button");
+showAllButton.textContent = "Show all the tasks";
+showAllButton.addEventListener('click', () => displayTasks(tasks));
+newLine(form);
+newLine(form);
+form.appendChild(showAllButton);
