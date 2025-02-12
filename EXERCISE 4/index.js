@@ -43,7 +43,8 @@ function showWin() {
 function showLost() {
     // You can use this function to dispaly the Lost View
     if(changes !== 0) {
-      tryAgainButton.textContent = `Try again ! (you have ${changes} left)`;
+      tryAgainButton.textContent = `Try again ! (${changes} chances left)`;
+      instructionLabel.textContent = `ENTER YOUR CODE (${changes} CHANCES LEFT)`;
     }
     else {
       hide(tryAgainButton);

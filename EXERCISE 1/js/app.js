@@ -18,7 +18,12 @@ item10.textContent = "10";
 container3.appendChild(item10);
 //  4- Set all items located in a blue container to red
 // YOUR CODE !!
-let blueContainer = document.querySelectorAll(".containerBlue .item");
-blueContainer.forEach(item => {
-    item.style.backgroundColor = "red";
+//https://www.w3schools.com/jsref/prop_element_children.asp
+
+const blueContainer = document.querySelectorAll(".containerBlue");// get all bule container
+blueContainer.forEach(container => {
+    let childrens = container.children;
+    for(let i = 0; i < childrens.length; i++) {
+        childrens[i].style.color = "red";
+    }
 });
